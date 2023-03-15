@@ -9,29 +9,25 @@
     @if (User.Identity.IsAuthenticated)
     {
         if (Model.Messages != null && Model.Messages.Any()) {
-            @* Add foreach here *@
-
+            foreach(var message in Model.Messages)
+            {
+                
                 <div class="card" style="width: 50rem;">
                     <div class="card-body">
                         <h5 class="card-title">
-                            @* Add message subject here *@
-
+                            @message.Subject
                         </h5>
                         <h6 class="card-subtitle mb-2 text-muted">
-                            @* Add message received date/time here *@
-                            
+                           @message.ReceivedDateTime.GetValueOrDefault().UtcDateTime
                         </h6>
                         <p class="card-text">
-                            @* Add message body preview here *@
-                            
+                          @message.BodyPreview
                         </p>
                     </div>
                 </div>
                 <br />
-
-            @* Add foreach closing bracket here *@
-
-            @if (!String.IsNullOrEmpty(Model.NextLink)) {
+            }
+            if (String.IsNullOrEmpty(Model.NextLink)) {
                 <a asp-page="/Email" asp-route-nextlink="@Model.NextLink" class="btn btn-primary">Next Page</a>
             }
         }

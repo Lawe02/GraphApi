@@ -1,0 +1,17 @@
+﻿@page
+@model UpdateModel
+@{
+    ViewData["Title"] = "Update Calendar";
+}
+<div>
+    <h1>
+        Update Event
+    </h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        if(Model.Event != null)
+        {
+            <h1>@Model.Event.Subject</h1>
+        }
+    }
+</div>

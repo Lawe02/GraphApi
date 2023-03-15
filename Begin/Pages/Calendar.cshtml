@@ -9,14 +9,14 @@
     @if (User.Identity.IsAuthenticated)
     {
         if (Model.Events != null && Model.Events.Any()) {
-            @* Add foreach statement here *@
+            foreach(var evt in Model.Events){
+
 
 
                  <div class="card" style="width: 50rem;">
                     <div class="card-body">
                         <h5 class="card-title">
-                            @* Add event subject here *@
-   
+                            @evt.Subject
                         </h5>
                         <p class="card-text">
                             <div class="container">
@@ -25,17 +25,25 @@
                                         <strong>Start:</strong>
                                     </div>
                                     <div class="col">
-                                        @* Add event start date/time here *@
+                                        @Model.FormatDateTimeTimeZone(evt.Start)
 
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-2">
-                                         <strong>End:</strong>
+                                        <strong>End:</strong>
                                     </div>
                                     <div class="col">
-                                        @* Add event end date/time here *@
+                                        @Model.FormatDateTimeTimeZone(evt.End)
 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <strong>Id</strong>
+                                    </div>
+                                    <div class="col">
+                                       <a asp-page="Update" asp-route-id=@evt.Id>Update</a>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +51,7 @@
                     </div>
                 </div>
                 <br />
-            @* Add foreach closing bracket here *@
+            }
 
         }
         else {
@@ -51,7 +59,7 @@
         }
     }
     else
-    {
+    { 
         <a class="btn btn-primary btn-large" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Click here to sign in</a>
     }
 
